@@ -3,7 +3,12 @@
 為了設定 noexec 有了以下實驗\
 本篇記錄 `docker run -v` 時, 原始資料夾不同 mount 參數對容器內檔案權限設定的影響
 ## 步驟紀錄
-首先建立一個資料夾 ori 並建立一個可執行的 script
+收先建立一個獨立的資料夾
+並在其中進行所有操作
+```
+$ mkdir mount && cd mount
+```
+接著建立一個資料夾 ori 並建立一個可執行的 script
 ```
 $ mkdir ori &&\
 echo "echo yee" > ori/script &&\
@@ -53,16 +58,26 @@ $ mkdir nnn
 $ sudo mount -o bind,ro,nodev,noexec,nosuid ori nnn
 $ mount | grep nnn
 /dev/sdd on /.../mount/nnn type ext4 (ro,nosuid,nodev,noexec,relatime,discard,errors=remount-ro,data=ordered)
-$ docker run --rm -v /home/ruei/docker/mount/nnn:/root/mnt/nnn alpine mount | grep /root/mnt
+$ docker run --rm -v /.../mount/nnn:/root/mnt/nnn alpine mount | grep /root/mnt
 /dev/sdd on /root/mnt/nnn type ext4 (ro,nosuid,nodev,noexec,relatime,discard,errors=remount-ro,data=ordered)
 ```
+確認 noexec 是否發揮作用
+```
+$ docker run --rm -v /.../mount/nnn:/root/mnt/nnn alpine sh -c /root/mnt/nnn/script
+sh: /root/mnt/nnn/script: Permission denied
+```
 實驗結束
-## takeaway
+## Cleanup
+```
+$ sudo umount ro nnn nodev noexec nosuid
+$ cd .. && rm -rf mount
+```
+## Takeaway
 1. 要設定 noexec, nosuid, nodev 先 bind mount 再 mount 給容器
 ## WTF
 ```
 $ mount | grep nnn
 /dev/sdd on /.../mount/nnn type ext4 (ro,nosuid,nodev,noexec,relatime,discard,errors=remount-ro,data=ordered)
-$ docker run --rm -v /home/ruei/docker/mount/nnn:/root/mnt/nnn:ro alpine sh -c /root/mnt/nnn/script
+$ docker run --rm -v /.../mount/nnn:/root/mnt/nnn:ro alpine sh -c /root/mnt/nnn/script
 yee
 ```
