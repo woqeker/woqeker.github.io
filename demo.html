@@ -115,9 +115,7 @@
                     .join('')
             ));
 
-            const Logout = () => {
-                alert('Logout');
-            };
+            const Logout = () => location.reload();
 
             const init = async () => {
                 const urlParams = new URLSearchParams(location.search);
