@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="DEMO - Static page implementing Line login" />
+    <meta name="author" content="Ruei" />
+    <title>Welcome</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" />
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"
+        integrity="sha384-oOE/3m0LUMPub4kaC09mrdEhIc+e3exm4xOGxAmuFXhBNF4hcg/6MiAXAf5p0P56" crossorigin="anonymous" />
+    <style>
+        body {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center" id="login-block">
+        <div>
+            <input type="image" src="/img/line.png" alt="Log in with LINE" style="width: 12rem; height: auto;"
+                onclick="LogInWithLine()" onkeydown="LogInWithLine()" />
+        </div>
+    </div>
+    <div class="container" id="authenticated-block">
+        <h2 id="welcome" class="form-signin-heading">Hello, </h2>
+        <div>
+            <button onclick="Logout()">logout</a>
+        </div>
+    </div>
+    <script src='index.js' integrity="sha384-O8nIMzO0TdIMg/QilRkRt4Ne3SmR0ecmqynJuMwD9SEMQ/xHpUtC6PMbHKvTPyxP"></script>
+</body>
+
+</html>
